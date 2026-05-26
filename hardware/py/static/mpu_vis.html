@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPU6050 Sensor Data Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/socket.io-4.7.5.js"></script>
+    <script src="js/three-r128.min.js"></script>
+    <script src="js/chart-4.4.0.umd.min.js"></script>
+    <script src="js/mpu-vis.js" defer></script>
+    <style>
+        .back-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            padding: 8px 16px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <button id="back-btn" class="back-btn">返回主页</button>
+<!--    <br><br><br>-->
+    <div id="orientation" class="panel"></div>
+
+    <div id="acceleration" class="panel">
+        <canvas id="accVectorCanvas" width="400" height="400"></canvas>
+        <div id="accText"></div>
+    </div>
+
+    <div id="accChartPanel" class="panel">
+        <canvas id="accChart"></canvas>
+    </div>
+
+    <div id="gyroChartPanel" class="panel">
+        <canvas id="gyroChart"></canvas>
+    </div>
+
+    <div id="sensorInfo"></div>
+    <div id="timeInfo"></div>
+    <div id="connectionInfo">Waiting for connection...</div>
+    <div id="filterInfo">Filter: ON</div>
+</div>
+</body>
+<script>
+  document.getElementById("back-btn").addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+</script>
+</html>

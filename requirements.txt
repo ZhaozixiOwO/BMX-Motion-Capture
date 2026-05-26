@@ -1,0 +1,6 @@
+pyqt6
+pyqtgraph
+ultralytics
+opencv-python
+numpy
+websockets

@@ -1,0 +1,72 @@
+/* Add to static/style.css or create if needed */
+/* Basic dark theme styling to match vis.py */
+body {
+    background-color: #2c2c2c;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.panel {
+    background-color: #1c1c1c;
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+#sensorInfo, #timeInfo, #connectionInfo, #filterInfo {
+    position: absolute;
+    background-color: rgba(28, 28, 28, 0.8);
+    padding: 5px;
+    color: white;
+}
+
+#sensorInfo {
+    top: 10px;
+    left: 10px;
+}
+
+#timeInfo {
+    bottom: 10px;
+    left: 10px;
+    color: yellow;
+}
+
+#connectionInfo {
+    bottom: 50px;
+    left: 10px;
+    color: orange;
+}
+
+#filterInfo {
+    top: 50px;
+    left: 10px;
+    color: lightgreen;
+}
+
+#accText {
+    color: white;
+    font-size: 12px;
+}
+
+.back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    padding: 8px 16px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background-color: #666;
+}

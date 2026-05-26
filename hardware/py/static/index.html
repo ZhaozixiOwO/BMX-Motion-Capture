@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* 超深背景色 */
+            color: #eee; /* 近白文本 */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #ccc;
+            margin-bottom: 50px;
+            line-height: 1.5;
+        }
+
+        .links a {
+            display: inline-block;
+            margin: 8px 12px;
+            padding: 14px 22px;
+            background-color: #0af; /* 明亮的蓝点缀 */
+            color: #111;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .links a:hover {
+            background-color: #08c;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Smart BMX System</h1>
+    <p>一个用于实时监测和可视化 BMX 姿态的智能系统，通过传感器与交互可视化，呈现直观生动的动态分析。</p>
+    <div class="links">
+        <a href="mpu_vis.html">BMX Pose Information Visualization 姿态监视页面</a><br>
+        <a href="pose_detection.html">BMX Pose Recognition 姿态识别页面</a>
+    </div>
+</div>
+</body>
+</html>

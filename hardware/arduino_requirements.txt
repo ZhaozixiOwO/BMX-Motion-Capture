@@ -1,0 +1,14 @@
+ESP32-S3 SuperMini Arduino 库依赖
+====================================
+
+通过 Arduino IDE 库管理器 (Ctrl/Cmd+Shift+I) 搜索安装：
+
+  WebSockets by Markus Sattler
+  ArduinoJson by Benoit Blanchon
+
+仅 IMU 固件 (esp32_IMU_BMX.ino) 额外需要：
+
+  Adafruit MPU6050
+  Adafruit Sensor
+
+WiFi.h / Wire.h 为 ESP32 开发板内置，无需安装。

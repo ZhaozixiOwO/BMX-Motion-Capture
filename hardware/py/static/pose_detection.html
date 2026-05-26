@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Yolo Pose Detection</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: #eee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .drop-zone {
+            border: 2px dashed #0af;
+            border-radius: 10px;
+            padding: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            color: #aaa;
+            font-size: 1.1em;
+        }
+
+        .drop-zone:hover {
+            background-color: rgba(0, 170, 255, 0.1);
+            border-color: #08c;
+        }
+
+        .drop-zone.dragover {
+            background-color: rgba(0, 170, 255, 0.15);
+            border-color: #0af;
+            color: #fff;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .process-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #111;
+            background-color: #0af;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .process-btn:hover {
+            background-color: #08c;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            padding: 8px 16px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 返回按钮 -->
+    <button id="back-btn" class="back-btn">返回主页</button>
+
+    <h1>Visual detection of BMX body frame and handlebar posture</h1>
+    <p>
+        A visual model trained based on Yolo11x-pose is used to recognize the skeleton posture
+        of the vehicle body and handlebars and present them
+    </p>
+    <br>
+    <label for="file-upload" class="drop-zone" id="drop-zone">
+        Drag & Drop files here or click to upload
+        <input type="file" id="file-upload" multiple/>
+    </label>
+    <br><br><br>
+    <button class="process-btn" id="process-btn">处理文件</button>
+</div>
+
+<script>
+  const dropZone = document.getElementById("drop-zone");
+  const fileInput = document.getElementById("file-upload");
+  const processBtn = document.getElementById("process-btn");
+  let uploadedFile = null;
+
+  document.getElementById("back-btn").addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+
+  dropZone.addEventListener("click", () => fileInput.click());
+
+  dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+  });
+
+  dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+  });
+
+  const allowedVideoTypes = [
+    "video/mp4",
+    "video/webm",
+    "video/avi",
+    "video/quicktime", // mov
+    "video/x-matroska" // mkv
+  ];
+  const allowedExt = [".mp4", ".webm", ".avi", ".mov", ".mkv"];
+
+  function isVideoFile(file) {
+    // 先用 MIME 类型匹配
+    if (allowedVideoTypes.includes(file.type)) {
+      return true;
+    }
+    // 如果 MIME 类型为空或不匹配，则检查扩展名
+    const ext = "." + file.name.split(".").pop().toLowerCase();
+    return allowedExt.includes(ext);
+  }
+
+  function handleFile(file) {
+    if (!isVideoFile(file)) {
+      alert("仅支持视频文件类型: mp4, webm, avi, mov, mkv");
+      uploadedFile = null;
+      dropZone.textContent = "Drag & Drop files here or click to upload";
+      return;
+    }
+    uploadedFile = file;
+    dropZone.textContent = "已导入文件：" + uploadedFile.name;
+  }
+
+  dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleFile(files[0]);
+    }
+  });
+
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+      handleFile(fileInput.files[0]);
+    }
+  });
+
+  processBtn.addEventListener("click", () => {
+    if (!uploadedFile) {
+      alert("请先导入文件再进行处理！");
+      return;
+    }
+
+    // 提示开始处理
+    alert("正在处理文件：" + uploadedFile.name);
+
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
+
+    fetch("/process", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("服务器返回错误状态: " + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === "success") {
+          alert(
+            "处理完成！\n已保存为：" +
+            data.uploaded_file +
+            "\n结果路径：" +
+            data.processed_path
+          );
+          console.log("处理结果：", data);
+        } else {
+          alert("处理失败：" + (data.error || "未知错误"));
+        }
+      })
+      .catch(error => {
+        console.error("处理文件时出错:", error);
+        alert("处理文件失败，请检查后端服务是否已启动");
+      });
+  });
+</script>
+</body>
+</html>
