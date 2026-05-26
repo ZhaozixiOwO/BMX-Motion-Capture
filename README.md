@@ -131,8 +131,8 @@ python main/bmx_ui.py
 ## 3️⃣ Launch Web Dashboard | 启动 Web 可视化
 
 ```bash
-pip install -r Hardware/py/requirements.txt
-python Hardware/py/run.py
+pip install -r hardware/py/requirements.txt
+python hardware/py/run.py
 ```
 
 Open in browser / 浏览器访问：
