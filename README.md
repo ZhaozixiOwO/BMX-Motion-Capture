@@ -182,6 +182,16 @@ http://localhost:5050
 
 ---
 
+## 👥 Contributors
+
+| Avatar | Name | GitHub | Role |
+|--------|------|--------|------|
+| <img src="https://avatars.githubusercontent.com/ZhaozixiOwO" width="50"/> | Zixi Zhao | [@ZhaozixiOwO](https://github.com/ZhaozixiOwO) | Project Creator / Lead Developer |
+| <img src="https://avatars.githubusercontent.com/Yearn66" width="50"/> | Yearn66 | [@Yearn66](https://github.com/Yearn66) | Developer / Collaborator |
+| <img src="https://avatars.githubusercontent.com/Lebron40000" width="50"/> | Lebron40000 | [@Lebron40000](https://github.com/Lebron40000) | Developer / Collaborator |
+
+---
+
 # 📜 License | 许可证
 
 Academic Final Year Project (FYP).  
